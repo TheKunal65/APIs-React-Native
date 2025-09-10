@@ -6,25 +6,26 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [show , setShow] = useState(false);
-  function displayLoader(){
-    setShow(true);
-    setTimeout(()=>{
-      setShow(false);
-    }, 3000);
-  }
+  const [showModal, setShowModal] = useState(false);
   return (
     <View style={styles.main}>
-      <Text style={styles.text}>Activity Indicator</Text>
-      <ActivityIndicator size={100} color="gold" animating={show}/>
-      {
-        show ? <ActivityIndicator size="large" color="red"/> : null
-      }
-      <Button title="Click" onPress={(displayLoader)}/>
+      <Modal transparent={true} visible={showModal} animationType='fade'>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Kunal Prajapat</Text>
+            <Button title="Close Modal" onPress={()=>setShowModal(false)}/>
+          </View>
+        </View>
+      </Modal>
+      <Text style={styles.text}>Modal in RN (Dialog Box)</Text>
+      <View style={styles.buttonView}>
+        <Button title="Open Modal" onPress={()=>setShowModal(true)}/>
+      </View>
     </View>
   );
 }
@@ -32,21 +33,38 @@ function App() {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
+    backgroundColor: '#e6d5b4ff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   text: {
-    fontSize: 40,
-    textAlign: 'center',
-    marginTop: 50,
-    backgroundColor: 'lightblue',
-    borderRadius: 30,
-    margin: 25,
-    padding: 3,
-    color: 'yellow',
-    borderWidth: 5,
-    borderColor: 'purple',
+    color: 'maroon',
     fontWeight: 'bold',
+    fontSize: 20,
+    marginTop: 50,
+  },
+  buttonView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 100,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
+    backgroundColor: 'white',
+    padding: 30,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: 'maroon',
+    shadowColor: 'black',
+    elevation: 5,
+  },
+  modalText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 });
 

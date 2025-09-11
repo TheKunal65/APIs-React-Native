@@ -7,64 +7,42 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Modal,
+  Pressable,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
   return (
     <View style={styles.main}>
-      <Modal transparent={true} visible={showModal} animationType='fade'>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Kunal Prajapat</Text>
-            <Button title="Close Modal" onPress={()=>setShowModal(false)}/>
-          </View>
-        </View>
-      </Modal>
-      <Text style={styles.text}>Modal in RN (Dialog Box)</Text>
-      <View style={styles.buttonView}>
-        <Button title="Open Modal" onPress={()=>setShowModal(true)}/>
-      </View>
+      <Pressable 
+      onPress={() => console.log('OnPress')}
+      // long press ka delay default 500ms hota hai
+      onLongPress={()=> console.log('OnLongPress')}
+      onPressIn={()=> console.log('OnPressIn')}
+      onPressOut={()=>console.log('OnPressOut')}
+      >
+        <Text style={styles.text}>Pressable</Text>
+      </Pressable>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: '#e6d5b4ff',
-    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
-    color: 'maroon',
+    fontSize: 40,
     fontWeight: 'bold',
-    fontSize: 20,
+    textAlign: 'center',
     marginTop: 50,
-  },
-  buttonView: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 100,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalView: {
-    backgroundColor: 'white',
-    padding: 30,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: 'maroon',
+    borderWidth: 3,
+    margin: 95,
+    borderRadius: 30,
+    backgroundColor: '#889defff',
+    color: 'white',
     shadowColor: 'black',
-    elevation: 5,
-  },
-  modalText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    elevation: 10,
   },
 });
 

@@ -1,25 +1,41 @@
-import { View, Text,StyleSheet, StatusBar, Button } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  Button,
+  Platform,
+} from 'react-native';
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [showStatusBar, setShowStatusBar] = useState(true);
-  const [barSty , setBarSty] = useState("default");
   return (
-    <View style={styles.main}>
-      <StatusBar barStyle={barSty} hidden={showStatusBar} />
-      <Button title='Update StatusBar'onPress={()=>setShowStatusBar(!showStatusBar)}/>
-      <Button title='Update Style' onPress={()=>setBarSty("light-content")}/>
+    <View>
+      <Text style={{ fontSize: 40, fontWeight: 'bold' }}>
+        Platform= {Platform.OS}
+      </Text>
+      {Platform.OS == 'android' ? (
+        <View
+          style={{ height: 100, width: 100, backgroundColor: 'lightgreen' }}
+        ></View>
+      ) : (
+        <View
+          style={{ height: 100, width: 100, backgroundColor: 'red' }}
+        ></View>
+      )}
+
+      <Text style={styles.text}>Hello Kunal</Text>
+      <Text style={{fontSize: 20}}>{JSON.stringify(Platform.constants.reactNativeVersion.minor)}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  main:{
-    flex: 1,
-    backgroundColor: 'skyblue',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  text:{
+    color: Platform.OS=="android" ? "orange" : "blue",
+    fontWeight: 'bold',
+    fontSize: 40,
+  }
 })
 
 export default App;

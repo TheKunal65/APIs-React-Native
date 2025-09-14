@@ -2,15 +2,17 @@ import { View, Text } from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
 
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator style={{marginTop:50}}>
         <Tab.Screen name='Login' component={Login}/>
         <Tab.Screen name='SignUp' component={SignUp}/>
+        <Tab.Screen name='Other' component={SignUp}/>
       </Tab.Navigator>
     </NavigationContainer>
   );

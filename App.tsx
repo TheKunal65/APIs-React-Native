@@ -1,50 +1,33 @@
-import { View, Text, Button, TextInput } from 'react-native';
+import { View, Text } from 'react-native';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './components/Home';
-import LoginScreen from './components/Login';
-import Header from './components/Header';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
 function App() {
-  function btnAction(){
-    console.log("Button pressed");
-  }
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: 'peachpuff',
-          },
-          headerTintColor: 'maroon',
-          headerTitleStyle: {
-            fontSize: 25,
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{
-            headerLeft: ()=><Button title="Left" onPress={btnAction}/>,
-            headerRight: ()=><Header/>,
-            title: 'User Login',
-            headerStyle: {
-              backgroundColor: 'peachpuff',
-            },
-            headerTintColor: 'maroon',
-            headerTitleStyle: {
-              fontSize: 25,
-              fontWeight: 'bold',
-            },
-          }}
-        />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name='Login' component={Login}/>
+        <Tab.Screen name='SignUp' component={SignUp}/>
+      </Tab.Navigator>
     </NavigationContainer>
+  );
+}
+
+function Login(){
+  return(
+    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+      <Text>It's Login Screen</Text>
+    </View>
+  );
+}
+function SignUp(){
+  return(
+    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+      <Text>It's SignUp Screen</Text>
+    </View>
   );
 }
 

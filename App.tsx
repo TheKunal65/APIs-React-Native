@@ -1,72 +1,36 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
 
-function App() {
-  const [data, setdata] = useState([]);
-
-  async function getAPIData() {
-    const url = 'https://jsonplaceholder.typicode.com/posts';
-    let result = await fetch(url);
+function App(){
+  async function saveAPIData(){
+    const data = {
+      name: "Tony",
+      age: 80,
+      email: "tony@singh.com",
+    }
+    const url = "http://10.147.203.9:3000/users";
+    let result = await fetch(url,{
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)});
     result = await result.json();
-    setdata(result);
+      console.log(result);
   }
-
-  useEffect(() => {
-    getAPIData();
-  }, []);
-
-  return (
-    <View style={{ backgroundColor: 'peachpuff', flex: 1 }}>
-      <Text style={styles.text}>FlatList With API Data</Text>
-      {data.length ? (
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <View
-              style={{
-                padding: 10,
-                backgroundColor: 'white',
-                borderBottomWidth: 1,
-                borderBottomColor: '#ccc',
-                margin: 10,
-                borderRadius: 25,
-                shadowColor: '#000',
-                elevation: 5,
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  backgroundColor: 'lightyellow',
-                  borderBlockColor: 'black',
-                  borderWidth: 1,
-                  padding: 5,
-                  marginBottom: 5,
-                  borderRadius: 20,
-                }}
-              >
-                {item.id}
-              </Text>
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                {item.title}
-              </Text>
-              <Text style={{ fontSize: 20 }}>{item.body}</Text>
-            </View>
-          )}
-        />
-      ) : null}
+  return(
+    <View>
+      <Text style={styles.text}>Post API Call</Text>
+      <Button title="Save Data" onPress={()=>saveAPIData()}/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center',
     marginTop: 50,
-  },
-});
+  }
+})
 
 export default App;

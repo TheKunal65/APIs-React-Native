@@ -4,13 +4,27 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [data, setData] = useState([]);
   async function getAPIData() {
-    const url = 'http://10.238.53.127:3000/users';
+    const url = 'http://10.147.203.9:3000/users';
     let result = await fetch(url);
     result = await result.json();
     if (result) {
       setData(result);
     }
   }
+
+  async function deleteUser(id){
+    const url = 'http://10.147.203.9:3000/users';
+    console.warn(`${url}/${id}`)
+    let result = await fetch(`${url}/${id}`, {
+      method: "DELETE",
+    });
+    result = await result.json();
+    if(result){
+      console.warn("USER DELETED");
+      getAPIData();
+    }
+  }
+
   useEffect(() => {
     getAPIData();
   }, []);
@@ -43,7 +57,7 @@ function App() {
                   <Button title="Update" />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Button title="Delete" />
+                  <Button title="Delete" onPress={()=>deleteUser(item.id)}/>
                 </View>
               </View>
             ))
